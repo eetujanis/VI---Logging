@@ -25,6 +25,12 @@ warn(message)
 Writes to console and root-level combined.log
 Optional: If you prefer a dedicated logs directory instead of a root file, switch to logs/combined.log.
 
+Requirements:
+
+NodeJS: 18
+Express: 4.18.2
+Winston: 3.11.0
+
 Getting Started
 Install dependencies
 
