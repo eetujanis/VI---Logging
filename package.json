@@ -1,16 +1,25 @@
 {
   "name": "vi---logging",
   "version": "1.0.0",
-  "description": "",
+  "description": "School work",
+  "keywords": [],
+  "homepage": "https://github.com/eetujanis/VI---Logging#readme",
+  "bugs": {
+    "url": "https://github.com/eetujanis/VI---Logging/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eetujanis/VI---Logging.git"
+  },
+  "license": "ISC",
+  "author": "eetujanis",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
+    "express": "^5.2.1",
     "winston": "github:winstonjs/winston"
   },
   "devDependencies": {

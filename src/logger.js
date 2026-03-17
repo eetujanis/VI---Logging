@@ -1,16 +1,24 @@
-const { createLogger, transports, format } = require('winston');
+// logger.js
+const fs = require('fs');
+const path = require('path');
 
-const logger = createLogger({
-  level: 'info',
-  format: format.combine(
-    format.timestamp(),
-    format.json()
-  ),
-  transports: [
-    new transports.Console(),
-    new transports.File({ filename: 'logs/error.log', level: 'error' }),
-    new transports.File({ filename: 'logs/combined.log' })
-  ]
-});
+// Log file in root/logs
+const logDir = path.join(__dirname, '..', 'logs');
+fs.mkdirSync(logDir, { recursive: true });
+const logPath = path.join(logDir, 'combined.log');
 
-module.exports = logger;
+function writeLog(type, message) {
+  const t = new Date().toISOString();
+  const line = `${t} [${type}] ${message}\n`;
+  // Console output
+  console.log(line.trim());
+  // Append to root-level log file
+  fs.appendFileSync(logPath, line);
+}
+
+module.exports = {
+  log: (type, msg) => writeLog(type, msg),
+  info: (msg) => writeLog('INFO', msg),
+  error: (msg) => writeLog('ERROR', msg),
+  warn: (msg) => writeLog('WARN', msg),
+};
