@@ -1,0 +1,100 @@
+Implementing Logging in a Node.js Application
+This project demonstrates how to integrate the Winston logging library into a Node.js application to capture and persist various events.
+
+Features
+Lightweight logging with Winston
+Console and file-based transports
+Structured JSON log entries with timestamps
+Separate error log and combined log files
+Simple example usage in the application
+Getting Started
+Follow these steps to set up and run the project.
+
+Prerequisites
+Node.js (version 14.x or newer recommended)
+npm (comes with Node.js)
+Installation
+Initialize a new Node.js project (already done in this task, but for reference):
+
+csharp
+git init
+npm init -y
+Install Winston:
+
+css
+npm install --save winston@3.11.0
+Project Structure
+css
+.
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── README.md
+└── src
+    ├── logger.js
+    └── main.js
+Logging Configuration
+Create src/logger.js with the following configuration:
+
+js
+const { createLogger, transports, format } = require('winston');
+
+const logger = createLogger({
+  level: 'info',
+  format: format.combine(
+    format.timestamp(),
+    format.json()
+  ),
+  transports: [
+    new transports.Console(),
+    new transports.File({ filename: 'logs/error.log', level: 'error' }),
+    new transports.File({ filename: 'logs/combined.log' })
+  ]
+});
+
+module.exports = logger;
+Implementing Logging in Your Application
+Create src/main.js and use the logger:
+
+js
+const logger = require('./logger');
+
+logger.log('info', 'This is an informational message.');
+logger.log('warn', 'This is a warning message.');
+logger.log('error', 'This is an error message.');
+
+logger.info('This is another informational message.');
+logger.warn('This is another warning message.');
+logger.error('This is another error message.');
+Run the Application
+Execute the application to see logging in action:
+
+css
+node src/main.js
+Check the console output as well as the log files located at:
+
+logs/error.log
+logs/combined.log
+Version Control and Ignoring Generated Data
+Ensure you have a proper .gitignore to avoid committing generated data and logs.
+A typical .gitignore snippet:
+bash
+# Logs
+logs/
+
+# Node modules (optional; usually not committed)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+Note: The logs directory and its files are often ignored in version control since they are generated at runtime.
+
+Best Practices and Next Steps
+Consider rotating logs or using a more advanced transport (e.g., winston-daily-rotate-file) for long-running applications.
+If you extend the app, you can add structured logging for different modules, contexts, or correlation IDs.
+Keep the package.json scripts simple, for example:
+json
+"scripts": {
+  "start": "node src/main.js"
+}
